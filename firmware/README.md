@@ -18,7 +18,7 @@ Export macros before flashing, especially when upgrading from shared storage. Fi
 
 FN3/FN4 mean numeric VIA/Launcher layers **3 and 4**, named `_FN2` and `_FN3` in the inherited enum. Each has 15 definitions and assignments. The sixth dynamic layer stays allocated for storage compatibility; numeric layer 5 has no macro encoder bank.
 
-Rotation cancels and selects a step. Each bank keeps its selection while powered. Knob matrix position **row 0, column 14** is consumed on macro layers: text cancels and normal replays immediately. Its release is consumed even if Fn is released first. Other layers retain the knob key binding.
+Rotation cancels and selects a step. Each bank keeps its selection while powered. Knob matrix position **row 0, column 14** is intercepted by `pre_process_record_user` before normal key processing on macro layers: text cancels and normal replays immediately. Its release is consumed even if Fn is released first. Other layers retain the knob key binding.
 
 ## Timing
 
@@ -47,3 +47,9 @@ Writes cancel playback. Saving sets the write marker, uploads/verifies the full 
 ## Tests
 
 From the repository root run `bash scripts/check.sh`. Native tests compile the actual player against mocked QMK APIs and check Unicode, cancellation, ownership, deferred delays, assignments, knob replay, and debounce. Protocol tests check bank serialization, legacy migration, capacity, uploads/readback, recovery, and timeouts. Hardware interaction is not automated.
+
+## Knob press troubleshooting
+
+Build from this repository's current `firmware/kafka/` files. An older external QMK checkout may still contain a keymap without the knob handler. Copy **all** keymap source files before compiling. Flash the newly built binary rather than a previous release asset. Updating the website alone cannot change physical knob behavior.
+
+The knob event test compiles the actual keymap event hooks. It verifies that a resolved `KC_MUTE` event on numeric layers 3/4 is swallowed before regular processing, including release after Fn is released. It also tests remapped knob keys, independent selections, unassigned steps, and passthrough outside macro layers.

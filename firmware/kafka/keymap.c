@@ -101,7 +101,8 @@ bool via_command_kb(uint8_t *data, uint8_t length) {
     return true;
 }
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+bool pre_process_record_user(uint16_t keycode, keyrecord_t *record) {
+    (void)keycode;
     // The Q8 ISO encoder push switch is matrix row 0, column 14.
     // Consume both edges even if Fn is released while the knob is held.
     if (record->event.key.row == 0 && record->event.key.col == 14) {
@@ -117,6 +118,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         }
     }
+    return true;
+}
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // VIA's standard SEND_STRING player cannot decode UTF-8. Assigned macro
     // keys insert the same texts through our deferred player, without Ctrl+A.
     if (keycode >= QK_MACRO && keycode <= QK_MACRO_MAX) {

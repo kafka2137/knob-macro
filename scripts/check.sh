@@ -15,3 +15,8 @@ for debounce in 200 350 0; do
     firmware/kafka/kafka_text.c -o "$scratch_dir/player-tests"
   "$scratch_dir/player-tests"
 done
+
+cc -std=gnu11 -Wall -Wextra -Werror -include firmware/kafka/config.h \
+  -DQMK_KEYBOARD_H='"keymap_mock.h"' -Ifirmware/tests -Ifirmware/kafka \
+  firmware/tests/knob_event_test.c firmware/kafka/keymap.c -o "$scratch_dir/knob-tests"
+"$scratch_dir/knob-tests"

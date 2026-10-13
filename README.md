@@ -52,7 +52,7 @@ Checks require Node.js and a C compiler:
 bash scripts/check.sh
 ```
 
-Checks cover JavaScript syntax, 15 protocol tests, and the actual firmware player with debounce settings 200 ms, 350 ms, and 0. The ARM firmware build passed in the development environment. Hardware playback and browser device interaction are not covered by automated tests.
+Checks cover JavaScript syntax, 15 protocol tests, the actual keymap knob event hooks, and the firmware player with debounce settings 200 ms, 350 ms, and 0. The ARM firmware build passed in the development environment. Hardware playback and browser device interaction are not covered by automated tests.
 
 ## Deploy to GitHub Pages
 
