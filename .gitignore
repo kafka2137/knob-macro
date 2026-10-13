@@ -1,0 +1,8 @@
+release-assets/
+_site/
+*.bin
+*.hex
+*.uf2
+*.elf
+*.map
+.DS_Store
